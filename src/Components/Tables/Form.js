@@ -20,9 +20,8 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-export default function Form() {
+export default function Form({ onNewCategory }) {
   const [open, setOpen] = React.useState(false);
-  const [data,setData]=React.useState("");
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -30,18 +29,20 @@ export default function Form() {
     setOpen(false);
     createData();
   };
-  const createData=()=>{
-  const name = document.getElementById("categoryName").value;
-    axios.post('https://localhost:7053/controller/Create', {
-      name: name
-    })
-    .then(response => {
-      setData(response.data.name)
-    })
-    .catch(error => {
-      console.log(error);
-    });
-  }
+
+    const createData = () => {
+      const name = document.getElementById("categoryName").value;
+      axios.post('https://localhost:7053/controller/Create', {
+        name: name
+      })
+      .then(response => {
+        onNewCategory(response.data.name); 
+        setOpen(false);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    };
 
   return (
     <React.Fragment>

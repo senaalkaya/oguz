@@ -14,7 +14,6 @@ import { Button } from '@mui/material';
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   // ... stil tanımlamaları aynı kalır ...
 }));
-
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   // ... stil tanımlamaları aynı kalır ...
 }));
@@ -38,6 +37,9 @@ export default function KategoriTable() {
       });
   }, []);
   
+  const handleNewCategory = (newCategory) => {
+    setRows(prevRows => [...prevRows, createData(newCategory)]);
+  };
 
   return (
     <TableContainer component={Paper}>
@@ -53,11 +55,10 @@ export default function KategoriTable() {
               <StyledTableCell component="th" scope="row">
                 {row.name}
               </StyledTableCell>
-              
             </StyledTableRow>
           ))}
         </TableBody>
-        <Form />
+        <Form onNewCategory={handleNewCategory}/>
       </Table>
     </TableContainer>
   );
