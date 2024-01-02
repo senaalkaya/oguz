@@ -27,22 +27,18 @@ export default function KategoriTable() {
   const [rows, setRows] = useState([]);
 
   useEffect(() => {
-    axios.get('API_URL')
+    axios.get('https://localhost:7053/controller/GetAll')
       .then(response => {
         const newRows = response.data.map(item => createData(item.name));
         setRows(newRows);
+        console.log(response.data,"hyfryhfrtyh");
       })
       .catch(error => {
         console.log(error);
       });
   }, []);
   
-  const CreateCategory = async () => {
-    axios.post('')
-      .then(res => {
-        console.log(res, "post");
-      })
-  }
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -57,9 +53,7 @@ export default function KategoriTable() {
               <StyledTableCell component="th" scope="row">
                 {row.name}
               </StyledTableCell>
-              <StyledTableCell component="th" scope="row">
-                <button onClick={CreateCategory}>Kategori Oluştur</button>
-              </StyledTableCell>
+              
             </StyledTableRow>
           ))}
         </TableBody>
